@@ -1,5 +1,7 @@
 ####################################################################################
 #### Twitter data analysis:                                                     ####
+#### - Tweets containing "asia/n" during coronavirus outbreak early 2020        ####
+#### - Sampling 500 tweets each weekend                                         ####
 #### - Which sentiments and emotions are reflected in the tweets?               ####
 #### - Using common scoring methods from text analysis                          ####
 ####                                                                            ####
