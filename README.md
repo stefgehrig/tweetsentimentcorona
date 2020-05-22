@@ -8,4 +8,4 @@ The repository contains R scripts to download data from twitter (a twitter devel
 
 ## Results
 
-![image](https://github.com/stefgehrig/tweetsentimentcorona/blob/master/sent_analysis_afinn_asia.png){:height="50%" width="50%"}
+![image](https://github.com/stefgehrig/tweetsentimentcorona/blob/master/sent_analysis_afinn_asia.png){:height="25%" width="25%"}
