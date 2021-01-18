@@ -24,7 +24,7 @@ This frequency analysis reveals that the topic of xenophobia is dominating much 
 
 - *"Today in Manhattan I saw a woman absolutely SCREAMING her head off at an Asian stranger to 'go back to Japan or China or wherever', the man looked terrified. This racism is not new but it has sure as hell escalated, please call it out when you see it and don’t just walk by."*
 
-- *"I normally don’t give a shit about his fucking racism, because we all know he’s a goddamn racist. However, it’s a dog whistle to his mouth breathing inbred backwards knuckle dragging fuck faces to blame and attack innocent Asian people. #RacistRussianCockHolster*
+- *"I normally don’t give a shit about his fucking racism, because we all know he’s a goddamn racist. However, it’s a dog whistle to his mouth breathing inbred backwards knuckle dragging fuck faces to blame and attack innocent Asian people. #RacistRussianCockHolster"*
 
 - *"I had to step in when a lady was yelling at an Asian woman and her kids, 'It’s your fault we are going through this' Trump isn’t the cause of the hate; it was here way before him. BUT his narrative is fueling the fire."*
 
