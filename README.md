@@ -36,7 +36,9 @@ The [NRC lexicon](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm) pro
 
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_nrc_asia.png" width="800" height="450">
 
-We also see that words associated with joy decrease over time, simultaneously with a slight increase in negative emotions like fear, anger and sadness. It is interesting to compare the sentiments and emotions in tweets concerning Asia with tweets concerning Italy, which arguably was hit by COVID-19 even harder than most countries in Asia during the sampling time. The trends in sentiment over time are indeed surprisingly similar, although we do -- as expected -- not observe the positive spike before the Chinese New Year holidays and the negative spike after Trump's infamous tweet:
+We also see that words associated with joy decrease over time, simultaneously with a slight increase in negative emotions like fear, anger and sadness. It is interesting to compare the sentiments and emotions in tweets concerning Asia with tweets concerning Italy, which arguably was hit by COVID-19 even harder than most countries in Asia during the sampling time. Tweets about Italy could potentially serve as a control group: While going through severe negative events that should affect sentiment expressed in US tweets, the country was never called out by parts of the public discourse as being to blame for COVID-19. Neither was it adressed in Trump's tweet. 
+
+The trends in sentiment over time are surprisingly similar, although we do - as expected - not observe the positive spike before the Chinese New Year holidays and the negative spike after Trump's infamous tweet. The frequency of negative words overall is also lower:
 
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_nrc_italy.png" width="800" height="450">
 
