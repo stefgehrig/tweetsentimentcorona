@@ -153,7 +153,7 @@ df_freq %>%
 p_freq <- ggplot() + 
   geom_histogram(data = filter(tmp, positive == TRUE), 
                  aes(x = rank, y = -N, alpha = abs(afscore)), 
-                 stat = "identity", fill = "steelblue", width = 0.6) + 
+                 stat = "identity", fill = "steelblue", width = 0.6, show.legend = FALSE) + 
   geom_histogram(data = filter(tmp, positive == FALSE), 
                  aes(x = rank, y = N, alpha = abs(afscore)), 
                  stat = "identity", fill = "coral", width = 0.6) + 
@@ -179,7 +179,7 @@ p_freq <- ggplot() +
        subtitle = "Sample of 500 English-language tweets each weekend",
        y = "N",
        x = "Rank",
-       alpha = "AFINN score (absolute)", 
+       alpha = "Absolute AFINN score\n(opacity gradient is same for blue)", 
        caption = "Sentiment scoring following the AFINN lexicon.
        Prior to analysis, stop words, @mentions and URLs were removed.")
 
@@ -342,7 +342,7 @@ dev.off()
 #############################
 
 #import RData file with tweets in "tw_list"
-load("tweets_italian.RData")
+load("data/tweets_italian.RData")
 tw_list  <- Filter(length, tw_list)
 
 #remove non-required columns
@@ -440,4 +440,3 @@ pb <- ggplot(dfb,
 png("plots/sent_analysis_nrc_italy.png", width = 3200, height = 1800, res = 385)
 print(pb)
 dev.off()
-
