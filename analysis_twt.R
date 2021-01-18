@@ -239,6 +239,7 @@ pb <- ggplot(dfb,
   geom_ribbon(alpha = 0.25, aes(fill = sentiment)) +
   guides(col = FALSE) +
   theme_minimal(base_size = 14) +
+  scale_y_continuous(limits = c(0,12.5)) + 
   facet_wrap(~ Category, nrow = 1) +
   labs(title = "Sentiments and emotions in US tweets which mention\n'asia' or 'asian' over the coronavirus outbreak",
        subtitle = "Sample of 500 English-language tweets each weekend",
@@ -426,6 +427,7 @@ pb <- ggplot(dfb,
   guides(col = FALSE) +
   theme_minimal(base_size = 14) +
   facet_wrap(~ Category, nrow = 1) +
+  scale_y_continuous(limits = c(0,12.5)) + 
   labs(title = "Sentiments and emotions in US tweets which mention\n'italy' or 'italian' over the coronavirus outbreak",
        subtitle = "Sample of 500 English-language tweets each weekend",
        x = "Date",
