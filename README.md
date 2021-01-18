@@ -24,7 +24,7 @@ This frequency analysis reveals that the topic of xenophobia is dominating much 
 
 - *"Today in Manhattan I saw a woman absolutely SCREAMING her head off at an Asian stranger to 'go back to Japan or China or wherever', the man looked terrified. This racism is not new but it has sure as hell escalated, please call it out when you see it and don’t just walk by."*
 
-- *"I normally don’t give a shit about his fucking racism, because we all know he’s a goddamn racist. However, it’s a dog whistle to his mouth breathing inbred backwards knuckle dragging fuck faces to blame and attack innocent Asian people. #RacistRussianCockHolster*
+- *"I normally don’t give a shit about his fucking racism, because we all know he’s a goddamn racist. However, it’s a dog whistle to his mouth breathing inbred backwards knuckle dragging fuck faces to blame and attack innocent Asian people. #RacistRussianCockHolster"*
 
 - *"I had to step in when a lady was yelling at an Asian woman and her kids, 'It’s your fault we are going through this' Trump isn’t the cause of the hate; it was here way before him. BUT his narrative is fueling the fire."*
 
@@ -36,7 +36,9 @@ The [NRC lexicon](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm) pro
 
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_nrc_asia.png" width="800" height="450">
 
-We also see that words associated with joy decrease over time, simultaneously with a slight increase in negative emotions like fear, anger and sadness. It is interesting to compare the sentiments and emotions in tweets concerning Asia with tweets concerning Italy, which arguably was hit by COVID-19 even harder than most countries in Asia during the sampling time. The trends in sentiment over time are indeed surprisingly similar, although we do -- as expected -- not observe the positive spike before the Chinese New Year holidays and the negative spike after Trump's infamous tweet:
+We also see that words associated with joy decrease over time, simultaneously with a slight increase in negative emotions like fear, anger and sadness. It is interesting to compare the sentiments and emotions in tweets concerning Asia with tweets concerning Italy, which arguably was hit by COVID-19 even harder than most countries in Asia during the sampling time. Tweets about Italy could potentially serve as a control group: While going through severe negative events that should affect sentiment expressed in US tweets, the country was never called out by parts of the public discourse as being to blame for COVID-19. Neither was it adressed in Trump's tweet. 
+
+The trends in sentiment over time are surprisingly similar, although we do - as expected - not observe the positive spike before the Chinese New Year holidays and the negative spike after Trump's infamous tweet. The frequency of negative words overall is also lower:
 
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_nrc_italy.png" width="800" height="450">
 
