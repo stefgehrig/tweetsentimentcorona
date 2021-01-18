@@ -33,7 +33,10 @@ loadfonts(device = "win")
 ###########################
 
 #import RData file with tweets in "tw_list"
-load("tweets_asian_compl.RData")
+load("data/tweets_asian_compl.RData")
+
+tw_list[[12]]$text
+
 
 #remove non-required columns
 f1 <- function(x) {
@@ -89,14 +92,21 @@ f7a <- function(x){
               Nneutral  = length(afscore[afscore==0]),
               Date      = lubridate::ymd(as.Date((tail(created_at,1)))),
               Day       = weekdays(tail(created_at,1)),
-              Top1laden = names(sort(table(word[afscore!=0]), decreasing = TRUE)[1]),
-              Top2laden = names(sort(table(word[afscore!=0]), decreasing = TRUE)[2]),
-              Top3laden = names(sort(table(word[afscore!=0]), decreasing = TRUE)[3]),
-              Top4laden = names(sort(table(word[afscore!=0]), decreasing = TRUE)[4]),
-              Top5laden = names(sort(table(word[afscore!=0]), decreasing = TRUE)[5]))}
+              Top1_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[1]),
+              Top2_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[2]),
+              Top3_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[3]),
+              Top4_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[4]),
+              Top5_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[5]))}
 dfa <- map_df(tw_lista, f7a)
 
-#plotting
+#get dataframe with words with highest positive and negative influence
+f8a <- function(x){
+  x %>% select(word, afscore) %>% 
+    filter(afscore != 0) %>% 
+    mutate(positive = afscore > 0)}
+df_freq <- map_df(tw_lista, f8a)
+
+#plotting time series
 pa <- ggplot(dfa, 
             aes(x    = Date, 
                 y    = Avg,
@@ -120,11 +130,61 @@ pa <- ggplot(dfa,
   annotate(geom = "text",
            x = c(ymd("2020-01-25"),ymd("2020-03-16")), 
            y = 0.1, size = 3,
-           label = c("Chinese\nNew Year", "Trump tweets\n'Chinese Virus'"))+
+           label = c("Chinese\nNew Year", "Trump tweets\n'Chinese Virus'")) +
   theme(text=element_text(family="Segoe UI")) 
 
-png("sent_analysis_afinn_asia.png", width = 2200, height = 1800, res = 350)
+png("plots/sent_analysis_afinn_asia.png", width = 2200, height = 1800, res = 350)
 print(pa)
+dev.off()
+
+#plotting frequencies of words
+set.seed(110)
+df_freq %>% 
+  group_by(word) %>% 
+  summarise(N = n(),
+            afscore = first(afscore), 
+            positive = first(positive),
+            .groups = "drop") %>% 
+  group_by(positive) %>% 
+  mutate(rank = rank(-N, ties.method = "random")) %>%
+  ungroup %>% 
+  filter(rank<=15) -> tmp
+
+p_freq <- ggplot() + 
+  geom_histogram(data = filter(tmp, positive == TRUE), 
+                 aes(x = rank, y = -N, alpha = abs(afscore)), 
+                 stat = "identity", fill = "steelblue", width = 0.6) + 
+  geom_histogram(data = filter(tmp, positive == FALSE), 
+                 aes(x = rank, y = N, alpha = abs(afscore)), 
+                 stat = "identity", fill = "coral", width = 0.6) + 
+  geom_text(data = filter(tmp, positive == FALSE), 
+            aes(x = rank, y = N + 40, label = word),
+            angle = 45, col = "grey30") + 
+  geom_text(data = filter(tmp, positive == TRUE), 
+            aes(x = rank, y = - N - 40, label = word),
+            angle = 315, col = "grey40") + 
+  geom_hline(yintercept = 0, col = "grey40") + 
+  geom_text(aes(x = 10, y = 220, label = "Negative sentiment"), size = 5, col = "grey20") + 
+  geom_text(aes(x = 10, y = -220, label = "Positive sentiment"), size = 5, col = "grey20") + 
+  scale_y_continuous(limits = c(-290,290), labels = abs) + 
+  scale_x_continuous(breaks = seq(1,15,1), minor_breaks = seq(1,15,1)) + 
+  scale_fill_distiller(palette = "Spectral") +
+  theme_minimal(base_size = 14) +
+  theme(text=element_text(family="Segoe UI"),
+        legend.position = "bottom",
+        legend.text = element_text(size = 9),
+        legend.title = element_text(size = 9),
+        panel.grid.major.x = element_blank()) +
+  labs(title = "Most frequent words of negative and positive sentiment in US tweets\nwhich mention 'asia' or 'asian' over the coronavirus outbreak",
+       subtitle = "Sample of 500 English-language tweets each weekend",
+       y = "N",
+       x = "Rank",
+       alpha = "AFINN score (absolute)", 
+       caption = "Sentiment scoring following the AFINN lexicon.
+       Prior to analysis, stop words, @mentions and URLs were removed.")
+
+png("plots/sent_analysis_afinn_asia_freq.png", width = 2800, height = 2300, res = 350)
+print(p_freq)
 dev.off()
 
 ##################
@@ -191,7 +251,7 @@ pb <- ggplot(dfb,
   geom_vline(xintercept = ymd("2020-01-25"), linetype = 2, size = 0.4) +
   theme(text=element_text(family="Segoe UI"))
 
-png("sent_analysis_nrc_asia.png", width = 3200, height = 1800, res = 385)
+png("plots/sent_analysis_nrc_asia.png", width = 3200, height = 1800, res = 385)
 print(pb)
 dev.off()
 
@@ -200,7 +260,7 @@ dev.off()
 ##################
 
 #import RData file with tweets in "tw_list"
-load("tweets_asian_compl.RData")
+load("data/tweets_asian_compl.RData")
 
 #remove non-required columns
 f1 <- function(x) {
@@ -271,7 +331,7 @@ pc <- ggplot(df,
            label = c("Chinese\nNew Year", "Trump tweets\n'Chinese Virus'"))+
   theme(text=element_text(family="Segoe UI")) 
 
-png("sent_analysis_sentr_asia.png", width = 2200, height = 1800, res = 350)
+png("plots/sent_analysis_sentr_asia.png", width = 2200, height = 1800, res = 350)
 print(pc)
 dev.off()
 
@@ -377,7 +437,7 @@ pb <- ggplot(dfb,
   geom_vline(xintercept = ymd("2020-01-25"), linetype = 2, size = 0.4) +
   theme(text=element_text(family="Segoe UI"))
 
-png("sent_analysis_nrc_italy.png", width = 3200, height = 1800, res = 385)
+png("plots/sent_analysis_nrc_italy.png", width = 3200, height = 1800, res = 385)
 print(pb)
 dev.off()
 

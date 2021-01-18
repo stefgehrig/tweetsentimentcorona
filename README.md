@@ -4,7 +4,7 @@
 
 This repository presnets a simple sentiment and emotion analysis of US-based tweets during the coronavirus outbreak, with focus on xenophobia. **What are sentiments and emotions expressed in US-based tweets that address Asia / Asians? How does this change during the unfolding of the pandemic in 2020?** For background on xenophobia and negative stereotyping during the pandemic, see for example this [Wikipedia page](https://en.wikipedia.org/wiki/List_of_incidents_of_xenophobia_and_racism_related_to_the_2019%E2%80%9320_coronavirus_pandemic).
 
-The repository contains R scripts to download data from twitter (a twitter developer account is required) and to run the analysis. RData files with dowloaded twitter data have been prepared (`tweets_asian_compl.RData`, `tweets_italian.RData`). Tweets were sampled at weekends from **December 28, 2019** to **April 19, 2020** (with maximum set to N = 500 per weekend), thereby spanning the initial global spread of the coronavirus after being first reported in China.
+The repository contains R scripts to download data from twitter (a twitter developer account is required) and to run the analysis. RData files with dowloaded twitter data have been prepared (`tweets_asian_compl.RData`, `tweets_italian.RData`). Tweets were sampled at weekends from **December 28, 2019** to **April 19, 2020**, thereby spanning the initial global spread of the coronavirus after being first reported in China.
 
 The repository also contains the AFINN lexicon for sentiment scoring as a text file (the most recent version can always be retrieved from the developer under https://github.com/fnielsen/afinn), as well as plots produced in the analysis. For text analysis, I use the packages [sentimentr](https://github.com/trinker/sentimentr), [textdata](https://cran.r-project.org/web/packages/textdata/index.html) and [tidytext](https://cran.r-project.org/web/packages/tidytext/index.html).
 
@@ -16,9 +16,17 @@ Using the AFINN lexicon to assign valence scores to single words (ranging from -
 
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/images/trump_tweet.PNG" width="475" height="102">
 
-Which of the non-neutral words, according to AFINN, are occurring most frequently?
+Which non-neutral words, according to AFINN, did occur most frequently, pooling tweets across the whole observation period?
 
-(placeholder)
+<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_afinn_asia_freq.png" width="900" height="500">
+
+This frequency analysis reveals that the topic of xenophobia is dominating much of the discourse about Asia at the time, with the words "racist" / "racism" contributing considerably to negative sentiment scores. Importantly, even though the mention of these words might not reveal xenophobia by the tweeter, they suggest presence of xenophobic behavior and speech in society. As an example, these are tweets from the weekend after Trump's "Chinese Virus" tweet (links and \@-mentions removed):
+
+- *"Today in Manhattan I saw a woman absolutely SCREAMING her head off at an Asian stranger to 'go back to Japan or China or wherever', the man looked terrified. This racism is not new but it has sure as hell escalated, please call it out when you see it and don’t just walk by."*
+
+- *"I normally don’t give a shit about his fucking racism, because we all know he’s a goddamn racist. However, it’s a dog whistle to his mouth breathing inbred backwards knuckle dragging fuck faces to blame and attack innocent Asian people. #RacistRussianCockHolster *
+
+- *"I had to step in when a lady was yelling at an Asian woman and her kids, 'It’s your fault we are going through this' Trump isn’t the cause of the hate; it was here way before him. BUT his narrative is fueling the fire."*
 
 In comparison to a pure lexicon lookup as used above, `sentimentr` is an algorithm which takes into account syntactical context like valence shifters (e.g., *not*) or valence augmenters (e.g., *very*) on the sentence level. The results look similar, although the average sentiment per Tweet becomes negative only once, at the weekend after Trump's "Chinese Virus" tweet:
 
