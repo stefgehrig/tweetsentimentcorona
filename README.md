@@ -14,7 +14,7 @@ Using the AFINN lexicon to assign valence scores to single words (ranging from -
 
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_afinn_asia.png" width="550" height="450">
 
-<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/trump_tweet.PNG" width="475" height="102">
+<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/images/trump_tweet.PNG" width="475" height="102">
 
 In comparison to a pure lexicon lookup as used above, `sentimentr` is an algorithm which takes into account syntactical context like valence shifters (e.g., *not*) or valence augmenters (e.g., *very*) on the sentence level. The results look similar, although the average sentiment per Tweet becomes negative only once, at the weekend after Trump's "Chinese Virus" tweet:
 
