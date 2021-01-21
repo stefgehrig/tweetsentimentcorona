@@ -18,7 +18,7 @@ Using the AFINN lexicon to assign valence scores to single words (ranging from -
 
 Which non-neutral words, according to AFINN, did occur most frequently, pooling tweets across the whole observation period?
 
-<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_afinn_asia_freq.png" width="650">
+<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_afinn_asia_freq.png" width="550">
 
 This frequency analysis reveals that the topic of xenophobia is dominating much of the discourse about Asia at the time, with the words "racist" / "racism" contributing considerably to negative sentiment scores. Importantly, even though the mention of these words might not reveal xenophobia by the tweeter, they suggest presence of xenophobic behavior and speech in society. As an example, these are tweets from the weekend after Trump's "Chinese Virus" tweet (links and \@mentions removed):
 
