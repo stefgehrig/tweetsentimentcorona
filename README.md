@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository presnets a simple sentiment and emotion analysis of US-based tweets during the coronavirus outbreak, with focus on xenophobia. **What are sentiments and emotions expressed in US-based tweets that address Asia / Asians? How does this change during the unfolding of the pandemic in 2020?** For background on xenophobia and negative stereotyping during the pandemic, see for example this [Wikipedia page](https://en.wikipedia.org/wiki/List_of_incidents_of_xenophobia_and_racism_related_to_the_2019%E2%80%9320_coronavirus_pandemic).
+This repository presents a simple sentiment and emotion text analysis of US-based tweets during the coronavirus outbreak, with focus on xenophobia. **What are sentiments and emotions expressed in US-based tweets that address Asia / Asians? How does this change during the unfolding of the pandemic in 2020?** For background on xenophobia and negative stereotyping during the pandemic, see for example this [Wikipedia page](https://en.wikipedia.org/wiki/List_of_incidents_of_xenophobia_and_racism_related_to_the_2019%E2%80%9320_coronavirus_pandemic).
 
 The repository contains R scripts to download data from twitter (a twitter developer account is required) and to run the analysis. RData files with dowloaded twitter data have been prepared (`tweets_asian_compl.RData`, `tweets_italian.RData`). Tweets were sampled at weekends from **December 28, 2019** to **April 19, 2020**, thereby spanning the initial global spread of the coronavirus after being first reported in China.
 
