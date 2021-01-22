@@ -20,7 +20,7 @@ Which non-neutral words, according to AFINN, did occur most frequently, pooling 
 
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_afinn_asia_freq.png" width="550">
 
-This frequency analysis reveals that the topic of xenophobia is dominating much of the discourse about Asia at the time, with the words "racist" / "racism" contributing considerably to negative sentiment scores. Importantly, even though the mention of these words might not reveal xenophobia by the tweeter, they suggest presence of xenophobic behavior and speech in society. As an example, these are tweets from the weekend after Trump's "Chinese Virus" tweet (links and \@mentions removed):
+This frequency analysis reveals that the topic of xenophobia is dominating much of the discourse about Asia at the time, with the words "*racist*"/"*racism*" contributing considerably to negative sentiment scores. Importantly, even though the mention of these words might not reveal xenophobia by the tweeter, they suggest presence of xenophobic behavior and speech in society. As an example, these are tweets from the weekend after Trump's "Chinese Virus" tweet (links and \@mentions removed):
 
 - *"Today in Manhattan I saw a woman absolutely SCREAMING her head off at an Asian stranger to 'go back to Japan or China or wherever', the man looked terrified. This racism is not new but it has sure as hell escalated, please call it out when you see it and don’t just walk by."*
 
