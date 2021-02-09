@@ -34,7 +34,7 @@ This frequency analysis reveals that the topic of xenophobia is dominating much 
 
 - "I had to step in when a lady was yelling at an Asian woman and her kids, 'It’s your fault we are going through this' Trump isn’t the cause of the **hate**; it was here way before him. BUT his narrative is fueling the **fire**."
 
-In comparison to a pure lexicon lookup as used above, `sentimentr` is an algorithm which systematically takes into account syntactical context like valence shifters (e.g., *not*) or valence augmenters (e.g., *very*) on the sentence level. The results look similar. The average sentiment per Tweet becomes negative only once, at the weekend after Trump's "Chinese Virus" tweet:
+In comparison to a pure lexicon lookup as used above, `sentimentr` is an algorithm which systematically takes into account syntactical context like valence shifters (e.g., *not*) or valence augmenters (e.g., *very*) on the sentence level. The results look similar, with sentiment decreasing over the period. The average sentiment per Tweet becomes negative only once, at the weekend after Trump's "Chinese Virus" tweet:
 
 <p align="center">
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_sentr_asia.png" width="550" height="450">
