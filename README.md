@@ -16,7 +16,7 @@ Using the AFINN lexicon to assign valence scores to single words (ranging from -
 
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/images/trump_tweet.PNG" width="475" height="102">
 
-Which non-neutral words, according to AFINN, did occur most frequently, pooling tweets across the whole observation period?
+Average scores cannot say anything about *what* people actually tweeted. So, which sentiment-laden words did occur most frequently, pooling tweets across the whole observation period and scoring them according to AFINN?
 
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_afinn_asia_freq.png" width="550">
 
