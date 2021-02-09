@@ -35,9 +35,6 @@ loadfonts(device = "win")
 #import RData file with tweets in "tw_list"
 load("data/tweets_asian_compl.RData")
 
-tw_list[[12]]$text
-
-
 #remove non-required columns
 f1 <- function(x) {
   x %>% select(text,created_at,mentions_screen_name)}
@@ -77,6 +74,7 @@ tw_list <- map(tw_list, f5)
 #load most recent sentiment scores of the AFINN lexicon, score all words according to AFINN, 0 otherwise
 af <- read.table("afinn.txt", header = FALSE, sep = "\t", quote = "")
 names(af) <- c("word","afscore")
+
 f6a <- function(x){
   x %>% 
     left_join(., af, by = "word") %>%
@@ -91,12 +89,7 @@ f7a <- function(x){
               Nwords    = length(afscore),
               Nneutral  = length(afscore[afscore==0]),
               Date      = lubridate::ymd(as.Date((tail(created_at,1)))),
-              Day       = weekdays(tail(created_at,1)),
-              Top1_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[1]),
-              Top2_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[2]),
-              Top3_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[3]),
-              Top4_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[4]),
-              Top5_not_neutral = names(sort(table(word[afscore!=0]), decreasing = TRUE)[5]))}
+              Day       = weekdays(tail(created_at,1)))}
 dfa <- map_df(tw_lista, f7a)
 
 #get dataframe with words with highest positive and negative influence
@@ -209,12 +202,7 @@ f7b <- function(x){
               Date     = lubridate::ymd(as.Date((tail(created_at,1)))),
               Count    = length(word),
               Nwords   = originalN[1],
-              Prop     = Count/Nwords,
-              Top1     = names(sort(table(word), decreasing = TRUE)[1]),
-              Top2     = names(sort(table(word), decreasing = TRUE)[2]),
-              Top3     = names(sort(table(word), decreasing = TRUE)[3]),
-              Top4     = names(sort(table(word), decreasing = TRUE)[4]),
-              Top5     = names(sort(table(word), decreasing = TRUE)[5])) %>% 
+              Prop     = Count/Nwords) %>% 
     filter(!is.na(sentiment))}
 
 dfb <- map_df(tw_listb, f7b)
@@ -396,12 +384,7 @@ f7b <- function(x){
               Date     = lubridate::ymd(as.Date((tail(created_at,1)))),
               Count    = length(word),
               Nwords   = originalN[1],
-              Prop     = Count/Nwords,
-              Top1     = names(sort(table(word), decreasing = TRUE)[1]),
-              Top2     = names(sort(table(word), decreasing = TRUE)[2]),
-              Top3     = names(sort(table(word), decreasing = TRUE)[3]),
-              Top4     = names(sort(table(word), decreasing = TRUE)[4]),
-              Top5     = names(sort(table(word), decreasing = TRUE)[5])) %>% 
+              Prop     = Count/Nwords) %>% 
     filter(!is.na(sentiment))}
 
 dfb <- map_df(tw_listb, f7b)
