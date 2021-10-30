@@ -10,18 +10,18 @@
 #### by Stefan Gehrig (April/May 2020)                                          ####
 ####################################################################################
 
-#empty environment
-rm(list = ls(all.names = TRUE))
-
 #load libraries
 library(dplyr)
 library(tidyr)
 library(lubridate)
+library(readr)
 library(purrr)
 library(tidytext)
 library(textdata)
 library(ggplot2)
+library(patchwork)
 library(stringr)
+library(scales)
 library(sentimentr)
 library(extrafont)
 loadfonts(device = "win")
@@ -88,7 +88,7 @@ f7a <- function(x){
               SD        = sd(afscore),
               Nwords    = length(afscore),
               Nneutral  = length(afscore[afscore==0]),
-              Date      = lubridate::ymd(as.Date((tail(created_at,1)))),
+              Date      = ymd(as.Date((tail(created_at,1)))),
               Day       = weekdays(tail(created_at,1)))}
 dfa <- map_df(tw_lista, f7a)
 
@@ -100,11 +100,12 @@ f8a <- function(x){
 df_freq <- map_df(tw_lista, f8a)
 
 #plotting time series
-pa <- ggplot(dfa, 
-            aes(x    = Date, 
-                y    = Avg,
-                ymin = Avg-SD/sqrt(Nwords)*qnorm(0.975),
-                ymax = Avg+SD/sqrt(Nwords)*qnorm(0.975))) +
+plot_afinn <- ggplot(dfa, 
+                     aes(x    = Date, 
+                         y    = Avg,
+                         ymin = Avg-SD/sqrt(Nwords)*qnorm(0.975),
+                         ymax = Avg+SD/sqrt(Nwords)*qnorm(0.975)
+                         )) +
   geom_line(size= 0.8) + 
   geom_point(size= 2.5) +
   geom_ribbon(alpha = 0.2) +
@@ -117,17 +118,21 @@ pa <- ggplot(dfa,
        caption = "Sentiment scoring following the AFINN lexicon.
        Prior to analysis, stop words, @mentions and URLs were removed."
   ) +
-  scale_y_continuous(limits = c(-0.2,0.1)) +
+  scale_y_continuous(limits = c(-0.2,0.12)) +
+  scale_x_date(date_breaks = "1 month",
+               date_labels = "%B %d, %Y") +
   geom_vline(xintercept = ymd("2020-03-16"), linetype = 2, size = 0.4) +
   geom_vline(xintercept = ymd("2020-01-25"), linetype = 2, size = 0.4) +
-  annotate(geom = "text",
+  annotate(geom = "label",
            x = c(ymd("2020-01-25"),ymd("2020-03-16")), 
            y = 0.1, size = 3,
-           label = c("Chinese\nNew Year", "Trump tweets\n'Chinese Virus'")) +
-  theme(text=element_text(family="Segoe UI")) 
+           label = c("Chinese\nNew Year", "Trump tweets\n'Chinese Virus'"),
+           fill = "ivory") +
+  theme(text=element_text(family="Segoe UI"),
+        panel.grid.minor = element_blank())
 
-png("plots/sent_analysis_afinn_asia.png", width = 2200, height = 1800, res = 350)
-print(pa)
+png("plots/sent_analysis_afinn_asia.png", width = 2300, height = 1800, res = 350)
+print(plot_afinn)
 dev.off()
 
 #plotting frequencies of words
@@ -199,7 +204,7 @@ f7b <- function(x){
     summarise(Category = factor(ifelse(sentiment[1] %in% c("positive", "negative"), 
                                        "Sentiment (positive vs. negative)", "Emotion"),
                                 ordered = TRUE, levels = c("Sentiment (positive vs. negative)", "Emotion")),
-              Date     = lubridate::ymd(as.Date((tail(created_at,1)))),
+              Date     = ymd(as.Date((tail(created_at,1)))),
               Count    = length(word),
               Nwords   = originalN[1],
               Prop     = Count/Nwords) %>% 
@@ -215,19 +220,21 @@ dfb %>%
                            "disgust")) -> dfb
 
 #plotting
-pb <- ggplot(dfb, 
-             aes(x     = Date, 
-                 y     = Prop*100,
-                 ymin  = Prop*100 - 100*sqrt(Prop*(1-Prop)/Nwords)*qnorm(0.975),
-                 ymax  = Prop*100 + 100*sqrt(Prop*(1-Prop)/Nwords)*qnorm(0.975),
-                 col   = sentiment
-             )) +
+plot_nrc <- ggplot(dfb, 
+                   aes(x     = Date, 
+                   y     = Prop*100,
+                   ymin  = Prop*100 - 100*sqrt(Prop*(1-Prop)/Nwords)*qnorm(0.975),
+                   ymax  = Prop*100 + 100*sqrt(Prop*(1-Prop)/Nwords)*qnorm(0.975),
+                   col   = sentiment
+                   )) +
   geom_line(size = 0.8) + 
   geom_point(size = 2.5) +
   geom_ribbon(alpha = 0.25, aes(fill = sentiment)) +
-  guides(col = FALSE) +
+  guides(col = "none") +
   theme_minimal(base_size = 14) +
-  scale_y_continuous(limits = c(0,12.5)) + 
+  scale_y_continuous(limits = c(0,12.5)) +
+  scale_x_date(date_breaks = "1 month",
+               date_labels = "%B %d, %Y") +
   facet_wrap(~ Category, nrow = 1) +
   labs(title = "Sentiments and emotions in US tweets which mention\n'asia' or 'asian' over the coronavirus outbreak",
        subtitle = "Sample of 500 English-language tweets each weekend",
@@ -238,10 +245,12 @@ pb <- ggplot(dfb,
   Prior to analysis, stop words, @mentions and URLs were removed.") +
   geom_vline(xintercept = ymd("2020-03-16"), linetype = 2, size = 0.4) +
   geom_vline(xintercept = ymd("2020-01-25"), linetype = 2, size = 0.4) +
-  theme(text=element_text(family="Segoe UI"))
+  theme(text=element_text(family="Segoe UI"),
+        panel.grid.minor = element_blank(),
+        axis.text.x = element_text(angle = 60, vjust = 1/2))
 
-png("plots/sent_analysis_nrc_asia.png", width = 3200, height = 1800, res = 385)
-print(pb)
+png("plots/sent_analysis_nrc_asia.png", width = 3200, height = 2000, res = 390)
+print(plot_nrc)
 dev.off()
 
 ##################
@@ -288,17 +297,18 @@ f5sentR <- function(x){
     summarise(Avg       = mean(ave_sentiment),
               SD        = sd(ave_sentiment),
               Ntweets   = length(ave_sentiment),
-              Date      = lubridate::ymd(as.Date((tail(created_at,1)))),
+              Date      = ymd(as.Date((tail(created_at,1)))),
               Day       = weekdays(tail(created_at,1)))}
 
 df <- map_df(tw_list, f5sentR)
 
 #plotting
-pc <- ggplot(df, 
-             aes(x    = Date, 
-                 y    = Avg,
-                 ymin = Avg-SD/sqrt(Ntweets)*qnorm(0.975),
-                 ymax = Avg+SD/sqrt(Ntweets)*qnorm(0.975))) +
+plot_sentr <- ggplot(df, 
+                     aes(x    = Date, 
+                         y    = Avg,
+                         ymin = Avg-SD/sqrt(Ntweets)*qnorm(0.975),
+                         ymax = Avg+SD/sqrt(Ntweets)*qnorm(0.975)
+                         )) +
   geom_line(size= 0.8) + 
   geom_point(size= 2.5) +
   geom_ribbon(alpha = 0.2) +
@@ -312,16 +322,20 @@ pc <- ggplot(df,
        Prior to analysis, @mentions and URLs were removed."
   ) +
   scale_y_continuous(limits = c(-0.1,0.15)) +
+  scale_x_date(date_breaks = "1 month",
+               date_labels = "%B %d, %Y") +
   geom_vline(xintercept = ymd("2020-03-16"), linetype = 2, size = 0.4) +
   geom_vline(xintercept = ymd("2020-01-25"), linetype = 2, size = 0.4) +
-  annotate(geom = "text",
+  annotate(geom = "label",
            x = c(ymd("2020-01-25"),ymd("2020-03-16")), 
            y = 0.13, size = 3,
-           label = c("Chinese\nNew Year", "Trump tweets\n'Chinese Virus'"))+
-  theme(text=element_text(family="Segoe UI")) 
+           label = c("Chinese\nNew Year", "Trump tweets\n'Chinese Virus'"),
+           fill = "ivory") +
+  theme(text=element_text(family="Segoe UI"),
+        panel.grid.minor = element_blank())
 
-png("plots/sent_analysis_sentr_asia.png", width = 2200, height = 1800, res = 350)
-print(pc)
+png("plots/sent_analysis_sentr_asia.png", width = 2300, height = 1800, res = 350)
+print(plot_sentr)
 dev.off()
 
 #############################
@@ -381,7 +395,7 @@ f7b <- function(x){
     summarise(Category = factor(ifelse(sentiment[1] %in% c("positive", "negative"), 
                                        "Sentiment (positive vs. negative)", "Emotion"),
                                 ordered = TRUE, levels = c("Sentiment (positive vs. negative)", "Emotion")),
-              Date     = lubridate::ymd(as.Date((tail(created_at,1)))),
+              Date     = ymd(as.Date((tail(created_at,1)))),
               Count    = length(word),
               Nwords   = originalN[1],
               Prop     = Count/Nwords) %>% 
@@ -397,20 +411,22 @@ dfb %>%
                            "disgust")) -> dfb
 
 #plotting
-pb <- ggplot(dfb, 
-             aes(x     = Date, 
-                 y     = Prop*100,
-                 ymin  = Prop*100 - 100*sqrt(Prop*(1-Prop)/Nwords)*qnorm(0.975),
-                 ymax  = Prop*100 + 100*sqrt(Prop*(1-Prop)/Nwords)*qnorm(0.975),
-                 col   = sentiment
-             )) +
+plot_nrc_ital <- ggplot(dfb, 
+                        aes(x     = Date, 
+                            y     = Prop*100,
+                            ymin  = Prop*100 - 100*sqrt(Prop*(1-Prop)/Nwords)*qnorm(0.975),
+                            ymax  = Prop*100 + 100*sqrt(Prop*(1-Prop)/Nwords)*qnorm(0.975),
+                            col   = sentiment
+                            )) +
   geom_line(size = 0.8) + 
   geom_point(size = 2.5) +
   geom_ribbon(alpha = 0.25, aes(fill = sentiment)) +
-  guides(col = FALSE) +
+  guides(col = "none") +
   theme_minimal(base_size = 14) +
   facet_wrap(~ Category, nrow = 1) +
   scale_y_continuous(limits = c(0,12.5)) + 
+  scale_x_date(date_breaks = "1 month",
+               date_labels = "%B %d, %Y") +
   labs(title = "Sentiments and emotions in US tweets which mention\n'italy' or 'italian' over the coronavirus outbreak",
        subtitle = "Sample of 500 English-language tweets each weekend",
        x = "Date",
@@ -420,8 +436,53 @@ pb <- ggplot(dfb,
   Prior to analysis, stop words, @mentions and URLs were removed.") +
   geom_vline(xintercept = ymd("2020-03-16"), linetype = 2, size = 0.4) +
   geom_vline(xintercept = ymd("2020-01-25"), linetype = 2, size = 0.4) +
-  theme(text=element_text(family="Segoe UI"))
+  theme(text=element_text(family="Segoe UI"),
+        panel.grid.minor = element_blank(),
+        axis.text.x = element_text(angle = 60, vjust = 1/2))
 
-png("plots/sent_analysis_nrc_italy.png", width = 3200, height = 1800, res = 385)
-print(pb)
+png("plots/sent_analysis_nrc_italy.png", width = 3200, height = 2000, res = 390)
+print(plot_nrc_ital)
+dev.off()
+
+
+#############################
+#############################
+###### plot covid cases #####
+#############################
+#############################
+
+#import covid data
+df_cov <- read_csv("data/us_covid_data.csv")
+
+plot_cov <- df_cov %>% 
+  mutate(Date = mdy(date)) %>% 
+  filter(Date <= "2020-04-19") %>% 
+  ggplot(aes(x    = Date, 
+             y    = cases)) +
+  geom_line(size= 0.8) + 
+  theme_minimal(base_size = 14) +
+  labs(title = "Cumulative count of coronvirus cases in the US",
+       subtitle = "Date range is the period for which tweets were sampled",
+       x = "Date",
+       y = "Cumulative number of cases",
+       color = "Mentioned",
+       caption = "Data were retrieved from github.com/nytimes/covid-19-data."
+  ) +
+  scale_y_continuous(trans = "log",
+                     labels = trans_format("log10", math_format(10^.x)),
+                     breaks = trans_breaks("log10", function(x) 10^x)) +
+  scale_x_date(limits = ymd(c("2019-12-28", NA)),
+               date_breaks = "1 month",
+               date_labels = "%B %d, %Y") +
+  theme(text=element_text(family="Segoe UI"),
+        panel.grid.minor = element_blank())
+
+# plot covid cases
+png("plots/covid_cases_us.png", width = 2300, height = 1800, res = 350)
+print(plot_cov)
+dev.off()
+
+# plot afinn and covid cases in one figure
+png("plots/afinn_and_covid_cases_us.png", width = 2600, height = 3600, res = 400)
+plot_afinn/plot_cov
 dev.off()

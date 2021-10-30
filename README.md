@@ -6,14 +6,13 @@ This repository presents a sentiment and emotion text analysis of US-based tweet
 
 The repository contains R scripts to download data from twitter (a twitter developer account is required) and to run the analysis. RData files with dowloaded twitter data have been prepared (`tweets_asian_compl.RData`, `tweets_italian.RData`). Tweets were sampled at weekends from **December 28, 2019** to **April 19, 2020**, thereby spanning the initial global spread of the coronavirus after being first reported in China.
 
-The repository also contains the AFINN lexicon for sentiment scoring as a text file (the most recent version can always be retrieved from the developer under https://github.com/fnielsen/afinn), as well as plots produced in the analysis. For text analysis, I use the packages [sentimentr](https://github.com/trinker/sentimentr), [textdata](https://cran.r-project.org/web/packages/textdata/index.html) and [tidytext](https://cran.r-project.org/web/packages/tidytext/index.html).
 
 ## Results
 
-Using the AFINN lexicon to assign valence scores to single words (ranging from -5 to 5), a negative trend in average sentiment per word is visible, particularly during the time when COVID-19 was reported to start spreading in the US (March 2020). March 16th, the day Donald Trump tweeted about the "Chinese Virus" (see below), is right before the observed minimum in expressed sentiment over the sampled time period:
+Using the AFINN lexicon to assign valence scores to single words (ranging from -5 to 5), a negative time trend in average sentiment per word is apparent during the time of the initial disease outbreak in the US. While the reported COVID-19 case count sharply increases, sentiment in tweets concering Asia drops on US twitter. After March 16th, the day Donald Trump tweeted about the "Chinese Virus" (see below), sentiment arrives as its observed minimum over the sampled time period:
 
 <p align="center">
-<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_afinn_asia.png" width="550" height="450">
+<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/afinn_and_covid_cases_us.png" width="550" height="450">
 </p>
 
 <p align="center">
@@ -46,12 +45,12 @@ The [NRC lexicon](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm) pro
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_nrc_asia.png" width="800" height="450">
 </p>
 
-We also see that words associated with joy decrease over time, simultaneously with a slight increase in negative emotions like fear, anger and sadness. It is interesting to compare the sentiments and emotions in tweets concerning Asia with tweets concerning Italy, which arguably was hit by COVID-19 even harder than most countries in Asia during the sampling time. Tweets about Italy could potentially serve as a control group: While going through severe negative events that should affect sentiment expressed in US tweets, the country was never called out by parts of the public discourse as being to blame for COVID-19. Neither was it adressed in Trump's tweet. 
+We also see that words associated with joy decrease over time, simultaneously with a slight increase in negative emotions like fear, anger and sadness. It is interesting to compare the sentiments and emotions in tweets concerning Asia with tweets concerning Italy, which arguably was hit by COVID-19 even harder than most countries in Asia during the sampling period. Tweets about Italy could potentially serve as a control group: While going through severe negative events that should affect sentiment expressed in US tweets, the country was never called out in public discourse as being to blame for COVID-19. Neither was it adressed in Trump's tweet. 
 
-The trends in sentiment over time are surprisingly similar, although we do - as expected - not observe the positive spike before the Chinese New Year holidays and the negative spike after Trump's infamous tweet. The frequency of negative words overall is also lower:
+The trends in sentiment over time are surprisingly similar, although we do - as expected - not observe the positive spike before the Chinese New Year holidays and the negative spike after Trump's infamous tweet. The average frequency of negative words overall is also lower. Still, consistent with the severe health crisis unfolding in Italy at the time, we observe a decrease in the expression of joy and an increase in the expression of sadness, fear and anger over the sampling period:
 
 <p align="center">
 <img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_nrc_italy.png" width="800" height="450">
 </p>
 
-Two important caveats of the simple analysis of "virtual xenophonia" presented here are (i) the difficulty to establish causality and (ii) measurement error. The latter should be huge, given that natural language was transformed into unidimensional metrics, even despite previous validations of the scoring methods. Further, a tweet with negative sentiment is of course not necessarily xenophobic or dealing with xenophobic events, but could simply contain words with negative valence, for example because it expresses sadness. Thus, more advanced methods of text analysis (e.g., neural-network based hate speech detectors) and causal identification (e.g., synthetic controls, difference-in-difference) would be needed for thorough analysis.
+Important caveats of the simple analysis of "virtual xenophonia" presented here. For example, (i) the difficulty to establish causality and (ii) measurement error. The latter should be huge, given that natural language was transformed into unidimensional metrics (although the scoring methods have previously been validated by other researchers). Further, a tweet with negative sentiment is of course not necessarily xenophobic or dealing with xenophobic events, but could simply contain words with negative valence, for example expressing sadness. Thus, more advanced methods of text analysis (e.g., neural-network based hate speech detection) and causal identification (e.g., synthetic controls, difference-in-difference approaches) would be needed for thorough analysis.

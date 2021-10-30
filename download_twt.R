@@ -6,9 +6,6 @@
 #### by Stefan Gehrig (April 2020)                                              ####
 ####################################################################################
 
-#empty environment
-rm(list = ls(all.names = TRUE))
-
 #load libraries
 library(rtweet)
 
