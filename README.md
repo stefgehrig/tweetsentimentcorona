@@ -12,7 +12,7 @@ The repository contains R scripts to download data from twitter (a twitter devel
 Using the AFINN lexicon to assign valence scores to single words (ranging from -5 to 5), a negative time trend in average sentiment per word is apparent during the time of the initial disease outbreak in the US. While the reported COVID-19 case count sharply increases, sentiment in tweets concering Asia drops on US twitter. After March 16th, the day Donald Trump tweeted about the "Chinese Virus" (see below), sentiment arrives as its observed minimum over the sampled time period:
 
 <p align="center">
-<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/afinn_and_covid_cases_us.png" width="550" height="450">
+<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/afinn_and_covid_cases_us.png" width="700" height="1000">
 </p>
 
 <p align="center">
@@ -22,7 +22,7 @@ Using the AFINN lexicon to assign valence scores to single words (ranging from -
 Average scores cannot say anything about *what* people actually tweeted. So, which sentiment-laden words did occur most frequently, pooling tweets across the whole observation period and scoring them according to AFINN?
 
 <p align="center">
-<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_afinn_asia_freq.png" width="550">
+<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_afinn_asia_freq.png" width="600">
 </p>
 
 This frequency analysis reveals that the topic of xenophobia is dominating much of the discourse about Asia at the time, with the words "*racist*"/"*racism*" contributing considerably to negative sentiment scores. Importantly, even though the mention of these words might not reveal xenophobia by the tweeter, they suggest presence of xenophobic behavior and speech in society. As an example, these are tweets from the weekend after Trump's "Chinese Virus" tweet (links and \@mentions removed, words with negative sentiment scores in bold):
@@ -36,7 +36,7 @@ This frequency analysis reveals that the topic of xenophobia is dominating much 
 In comparison to a pure lexicon lookup as used above, `sentimentr` is an algorithm which systematically takes into account syntactical context like valence shifters (e.g., *not*) or valence augmenters (e.g., *very*) on the sentence level. The results look similar, with sentiment decreasing over the period. The average sentiment per Tweet becomes negative only once, at the weekend after Trump's "Chinese Virus" tweet:
 
 <p align="center">
-<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_sentr_asia.png" width="550" height="450">
+<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/sent_analysis_sentr_asia.png" width="600" height="475">
 </p>
 
 The [NRC lexicon](https://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm) provides not only a dictionary for sentiments (positive, negative), but also for particular emotions (e.g., fear, joy, anger). In contrast to AFINN, a word is either in a specific sentiment/emotion class or not. Hence, the analysis is now based on proportions rather than average scores. The trend with decreasing positive sentiment and increasing negative sentiment during the manifestation of COVID-19 in the US is consistent with the previous analyses. Interestingly, negative words are more frequent than positive words only at the weekend after Trump's tweet (but this simple descriptive analysis can of course not establish it as a cause):
