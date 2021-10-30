@@ -12,7 +12,7 @@ The repository contains R scripts to download data from twitter (a twitter devel
 Using the AFINN lexicon to assign valence scores to single words (ranging from -5 to 5), a negative time trend in average sentiment per word is apparent during the time of the initial disease outbreak in the US. While the reported COVID-19 case count sharply increases, sentiment in tweets concering Asia drops on US twitter. After March 16th, the day Donald Trump tweeted about the "Chinese Virus" (see below), sentiment arrives as its observed minimum over the sampled time period:
 
 <p align="center">
-<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/afinn_and_covid_cases_us.png" width="700" height="1000">
+<img src="https://github.com/stefgehrig/tweetsentimentcorona/blob/master/plots/afinn_and_covid_cases_us.png" width="600">
 </p>
 
 <p align="center">
