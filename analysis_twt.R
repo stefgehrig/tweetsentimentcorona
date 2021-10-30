@@ -462,7 +462,6 @@ plot_cov <- df_cov %>%
   geom_line(size= 0.8) + 
   theme_minimal(base_size = 14) +
   labs(title = "Cumulative count of coronvirus cases in the US",
-       subtitle = "Date range is the period for which tweets were sampled",
        x = "Date",
        y = "Cumulative number of cases",
        color = "Mentioned",
